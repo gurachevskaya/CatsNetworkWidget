@@ -18,6 +18,7 @@
 		1847FB00292D09D3009A01B8 /* CatsNetworkWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 1847FAFC292D09D1009A01B8 /* CatsNetworkWidgetExtension.intentdefinition */; };
 		1847FB01292D09D3009A01B8 /* CatsNetworkWidgetExtension.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 1847FAFC292D09D1009A01B8 /* CatsNetworkWidgetExtension.intentdefinition */; };
 		1847FB04292D09D3009A01B8 /* CatsNetworkWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1847FAF3292D09D1009A01B8 /* CatsNetworkWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1847FB0B292D27CB009A01B8 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1847FB09292D27A9009A01B8 /* URLImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		1847FAFC292D09D1009A01B8 /* CatsNetworkWidgetExtension.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = CatsNetworkWidgetExtension.intentdefinition; sourceTree = "<group>"; };
 		1847FAFD292D09D3009A01B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1847FAFF292D09D3009A01B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1847FB09292D27A9009A01B8 /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				1847FAFC292D09D1009A01B8 /* CatsNetworkWidgetExtension.intentdefinition */,
 				1847FAFD292D09D3009A01B8 /* Assets.xcassets */,
 				1847FAFF292D09D3009A01B8 /* Info.plist */,
+				1847FB09292D27A9009A01B8 /* URLImageView.swift */,
 			);
 			path = CatsNetworkWidgetExtension;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			files = (
 				1847FB00292D09D3009A01B8 /* CatsNetworkWidgetExtension.intentdefinition in Sources */,
 				1847FAFB292D09D1009A01B8 /* CatsNetworkWidgetExtension.swift in Sources */,
+				1847FB0B292D27CB009A01B8 /* URLImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
