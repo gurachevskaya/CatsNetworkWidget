@@ -8,8 +8,12 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import Combine
+
+private var cancellables = Set<AnyCancellable>()
 
 struct Provider: IntentTimelineProvider {
+    
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date())
     }
@@ -20,16 +24,41 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let midnight = Calendar.current.startOfDay(for: Date())
-        let nextMidnight = Calendar.current.date(byAdding: .day, value: 1, to: midnight)!
-        let entries = [SimpleEntry(date: midnight)]
-        let timeline = Timeline(entries: entries, policy: .after(nextMidnight))
-        completion(timeline)
+        let currentDate = Date()
+        let nextDate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate)!
+        
+        NetworkManager.shared.fetch(endpoint: CatAPIEndpoint.getRandomCatImage)
+            .receive(on: DispatchQueue.main)
+            .decode(type: [CatModel].self, decoder: JSONDecoder())
+            .map { $0.first }
+            .sink {
+                switch $0 {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    let entries = [
+                        SimpleEntry(date: currentDate),
+                        SimpleEntry(date: nextDate),
+                    ]
+                    let timeline = Timeline(entries: entries, policy: .atEnd)
+                           completion(timeline)
+                       case .finished:
+                           print("Request completed")
+                       }
+                   } receiveValue: {
+                       let entries = [
+                           SimpleEntry(date: currentDate, cat: $0),
+                           SimpleEntry(date: nextDate, cat: $0),
+                       ]
+                       let timeline = Timeline(entries: entries, policy: .atEnd)
+                       completion(timeline)
+                   }
+                   .store(in: &cancellables)
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
+    var cat: CatModel?
 }
 
 struct CatsNetworkWidgetExtensionEntryView : View {
@@ -44,15 +73,13 @@ private struct URLImageWidgetEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
-        if let imageURL, let data = try? Data(contentsOf: imageURL) {
+        if
+            let imageURL = URL(string: entry.cat?.url ?? ""),
+            let data = try? Data(contentsOf: imageURL)
+        {
             URLImageView(data: data)
                 .aspectRatio(contentMode: .fill)
         }
-    }
-
-    private var imageURL: URL? {
-        let path = "https://raw.githubusercontent.com/pawello2222/country-flags/main/png1000px/pl.png"
-        return URL(string: path)
     }
 }
 
