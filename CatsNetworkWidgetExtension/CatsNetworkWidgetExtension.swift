@@ -25,7 +25,7 @@ struct Provider: IntentTimelineProvider {
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let currentDate = Date()
-        let nextDate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate)!
+        let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
         
         NetworkManager.shared.fetch(endpoint: CatAPIEndpoint.getRandomCatImage)
             .receive(on: DispatchQueue.main)
